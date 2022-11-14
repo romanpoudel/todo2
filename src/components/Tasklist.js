@@ -53,7 +53,7 @@ function Tasklist({ list, setList }) {
           <h1>Deadline</h1>
         </div>
         {list.map((item, index) => (
-          <div className="flex justify-between p-2 w-full bg-gray-600 rounded-lg border-black text-white ">
+          <div key={index} className="flex justify-between p-2 w-full bg-gray-600 rounded-lg border-black text-white ">
             <div className="ml-2 flex flex-row  justify-between w-full pr-4">
               <div className="w-1/3 ">
                 <p>{item.name.text}</p>
