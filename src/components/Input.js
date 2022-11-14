@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { Tooltip } from "@mui/material";
 
@@ -35,9 +34,6 @@ function Input({ task, setTask, list, setList, index, edit, setEdit }) {
     });
     // console.log(list);
   };
-  useEffect(() => {
-    localStorage.setItem("task", JSON.stringify(list));
-  }, [list]);
   return (
     <form onSubmit={handleSubmit}>
       <div className="Input m-1 flex justify-around">

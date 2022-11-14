@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Tasklist from "./components/Tasklist";
 
@@ -14,8 +14,12 @@ const getLocalItems = () => {
   }
 };
 
+
 function App() {
   const [list, setList] = useState(getLocalItems);
+  useEffect(() => {
+    localStorage.setItem("task", JSON.stringify(list));
+  }, [list]);
   return (
     <div className="App flex flex-col m-10 p-10 align-center border-4 rounded-md justify-center">
       <Navbar />
