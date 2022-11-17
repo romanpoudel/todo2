@@ -11,24 +11,26 @@ function Tasklist({ list, setList }) {
   });
   const [edit,setEdit]=useState(false);
 
-  const handleCheck = (index) => {
-    const remainingList = list.filter((item, i) => {
-      return i !== index;
+  const handleCheck = (id) => {
+    const remainingList = list.filter((item) => {
+      return item.id !== id;
     });
     setList(remainingList);
   };
 
-  // var indexClicked;
-  const [indexClicked,setIndexClicked]=useState();
-  const handleEdit = (index) => {
+
+  const [clickedTask,setClickedTask]=useState();
+  const handleEdit = (id) => {
     setEdit(true);
-    // console.log(list[index]);
-    // indexClicked = index;
-   setIndexClicked(index);
+    let newEditItem=list.find((elem)=>{
+      return elem.id===id
+    })
+    console.log(newEditItem)
+   setClickedTask(id);
     setTask({
-      text: list[index].name.text,
-      category:list[index].name.category,
-      date: list[index].name.date
+      text: newEditItem.name.text,
+      category:newEditItem.name.category,
+      date: newEditItem.name.date
     });
   }; 
 
@@ -39,7 +41,7 @@ function Tasklist({ list, setList }) {
         setTask={setTask}
         list={list}
         setList={setList}
-        index={indexClicked}
+        clickedTask={clickedTask}
         edit={edit}
         setEdit={setEdit}
       />
@@ -52,8 +54,8 @@ function Tasklist({ list, setList }) {
           <h1>Category</h1>
           <h1>Deadline</h1>
         </div>
-        {list.map((item, index) => (
-          <div key={index} className="flex justify-between p-2 w-full bg-gray-600 rounded-lg border-black text-white ">
+        {list.map((item) => (
+          <div key={item.id} className="flex justify-between p-2 w-full bg-gray-600 rounded-lg border-black text-white ">
             <div className="ml-2 flex flex-row  justify-between w-full pr-4">
               <div className="w-1/3 ">
                 <p>{item.name.text}</p>
@@ -66,12 +68,12 @@ function Tasklist({ list, setList }) {
               </div>
             </div>
             <div className="mr-2 px-2 ">
-              <button onClick={() => handleEdit(index)}>
+              <button onClick={() => handleEdit(item.id)}>
                 <EditIcon />
               </button>
             </div>
             <div className="mr-2 ">
-              <button onClick={() => handleCheck(index)}>
+              <button onClick={() => handleCheck(item.id)}>
                 <CheckCircleIcon />
               </button>
             </div>

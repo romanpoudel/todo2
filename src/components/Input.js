@@ -2,7 +2,7 @@ import React from "react";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { Tooltip } from "@mui/material";
 
-function Input({ task, setTask, list, setList, index, edit, setEdit }) {
+function Input({ task, setTask, list, setList, clickedTask, edit, setEdit }) {
   const handleClick = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -15,9 +15,13 @@ function Input({ task, setTask, list, setList, index, edit, setEdit }) {
     if (edit) {
       if (task.text && task.category && task.date) {
         setEdit(false);
-        // console.log(list[index].name)
-        list[index].name=task;
-        setList([...list]);
+       setList(list.map((elem)=>{
+        if(elem.id===clickedTask){
+          return {...elem,name:task}
+        }
+        return elem;
+       }))
+        
       }
     } else {
       if (task.text && task.category && task.date) {
