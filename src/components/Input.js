@@ -1,17 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef ,forwardRef} from "react";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { Tooltip } from "@mui/material";
 
-function Input({ task, setTask, list, setList, clickedTask, edit, setEdit }) {
+function Input({ task, setTask, list, setList, clickedTask, edit, setEdit },ref) {
   const handleClick = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setTask({ ...task, [name]: value });
   };
 
+  
   const categoryRef = useRef();
   const dateRef = useRef();
   const buttonRef = useRef();
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -53,6 +56,7 @@ function Input({ task, setTask, list, setList, clickedTask, edit, setEdit }) {
           onChange={handleClick}
           value={task.text}
           placeholder="Task"
+          ref={ref}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
               event.preventDefault();
@@ -104,4 +108,4 @@ function Input({ task, setTask, list, setList, clickedTask, edit, setEdit }) {
   );
 }
 
-export default Input;
+export default forwardRef(Input);

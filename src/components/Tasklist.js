@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Input from "./Input";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,7 +9,8 @@ function Tasklist({ list, setList }) {
     category: "",
     date: "",
   });
-  const [edit,setEdit]=useState(false);
+  const [edit, setEdit] = useState(false);
+  const taskRef = useRef();
 
   const handleCheck = (id) => {
     const remainingList = list.filter((item) => {
@@ -18,21 +19,22 @@ function Tasklist({ list, setList }) {
     setList(remainingList);
   };
 
-
-  const [clickedTask,setClickedTask]=useState();
+  const [clickedTask, setClickedTask] = useState();
   const handleEdit = (id) => {
     setEdit(true);
-    let newEditItem=list.find((elem)=>{
-      return elem.id===id
-    })
-    console.log(newEditItem)
-   setClickedTask(id);
+    let newEditItem = list.find((elem) => {
+      return elem.id === id;
+    });
+    // console.log(newEditItem);
+    setClickedTask(id);
     setTask({
       text: newEditItem.name.text,
-      category:newEditItem.name.category,
-      date: newEditItem.name.date
+      category: newEditItem.name.category,
+      date: newEditItem.name.date,
     });
-  }; 
+    taskRef.current.focus();
+  };
+ 
 
   return (
     <div>
@@ -44,6 +46,7 @@ function Tasklist({ list, setList }) {
         clickedTask={clickedTask}
         edit={edit}
         setEdit={setEdit}
+        ref={taskRef}
       />
       <div className="flex flex-col items-center  display space-y-3 bg-gray-300  rounded-md m-6 p-6">
         <div className="font-bold">
@@ -55,7 +58,10 @@ function Tasklist({ list, setList }) {
           <h1>Deadline</h1>
         </div>
         {list.map((item) => (
-          <div key={item.id} className="flex justify-between p-2 w-full bg-gray-600 rounded-lg border-black text-white ">
+          <div
+            key={item.id}
+            className="flex justify-between p-2 w-full bg-gray-600 rounded-lg border-black text-white "
+          >
             <div className="ml-2 flex flex-row  justify-between w-full pr-4">
               <div className="w-1/3 ">
                 <p>{item.name.text}</p>
@@ -73,7 +79,9 @@ function Tasklist({ list, setList }) {
               </button>
             </div>
             <div className="mr-2 ">
-              <button onClick={() => handleCheck(item.id)}>
+              <button
+                onClick={() => {handleCheck(item.id)}}
+              >
                 <CheckCircleIcon />
               </button>
             </div>

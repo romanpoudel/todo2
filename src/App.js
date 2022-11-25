@@ -2,6 +2,7 @@ import "./App.css";
 import { useState,useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Tasklist from "./components/Tasklist";
+// import Test from "./components/Test";
 
 
 const getLocalItems = () => {
@@ -24,6 +25,7 @@ function App() {
     <div className="App flex flex-col m-10 p-10 align-center border-4 rounded-md justify-center">
       <Navbar />
       <Tasklist list={list} setList={setList}/>
+      {/* <Test /> */}
     </div>
   );
 }
