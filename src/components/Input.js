@@ -45,7 +45,7 @@ function Input({ task, setTask, list, setList, clickedTask, edit, setEdit }) {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="Input m-1 flex justify-around">
+      <div className="Input m-2 flex justify-around">
         <input
           className="w-3/5 p-2  border-2 outline-none rounded-lg border-gray-600"
           type="text"
